@@ -6,13 +6,16 @@ var chaiHttp = require('chai-http');
 var chai = require('chai');
 var should = chai.should();
 var mongoose = require('mongoose');
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 var IngredientType = mongoose.model('IngredientTypes');
 
 chai.use(chaiHttp);
 
 describe('Testing /ingredient_types api', function () {
     beforeEach(function (done) {
-        IngredientType.remove({}, function (err) {
+        IngredientType.deleteMany({}, function (err) {
             done();
         })
     });
@@ -62,7 +65,7 @@ describe('Testing /ingredient_types api', function () {
                 .post('/ingredient_types')
                 .send(ingredient_type)
                 .end(function (err, res) {
-                    console.log(res.body);
+                    // console.log(res.body);
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('name');
@@ -123,7 +126,7 @@ describe('Testing /ingredient_types api', function () {
                     });
             });
         });
-    })
+    });
 
 });
 
