@@ -6,7 +6,7 @@ var express = require('express'),
     bodyParser = require('body-parser');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/SubWaylandDB'); //connect to the DB
+mongoose.connect('mongodb://localhost/SubWaylandDB', { useNewUrlParser: true }); //connect to the DB
 
 app.use(bodyParser.urlencoded({extended: true }));
 app.use(bodyParser.json());

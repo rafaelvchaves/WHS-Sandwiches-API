@@ -116,7 +116,7 @@ describe('Testing /ingredient_types api', function () {
                     .put('/ingredient_types/' + ingredient_type._id)
                     .send(updated_ingredient_type)
                     .end(function (err, res) {
-                        console.log(res.body);
+                        // console.log(res.body);
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         // res.body.should.have.property('name');
