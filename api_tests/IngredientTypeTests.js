@@ -13,7 +13,7 @@ var IngredientType = mongoose.model('IngredientTypes');
 
 chai.use(chaiHttp);
 
-describe('Testing /ingredient_types api', function () {
+describe('TESTING INGREDIENT TYPES API', function () {
     beforeEach(function (done) {
         IngredientType.deleteMany({}, function (err) {
             done();
@@ -65,7 +65,7 @@ describe('Testing /ingredient_types api', function () {
                 .post('/ingredient_types')
                 .send(ingredient_type)
                 .end(function (err, res) {
-                    // console.log(res.body);
+                    console.log(res.body);
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('name');
@@ -116,7 +116,7 @@ describe('Testing /ingredient_types api', function () {
                     .put('/ingredient_types/' + ingredient_type._id)
                     .send(updated_ingredient_type)
                     .end(function (err, res) {
-                        // console.log(res.body);
+                        console.log(res.body);
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         // res.body.should.have.property('name');
