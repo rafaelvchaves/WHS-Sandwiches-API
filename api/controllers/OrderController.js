@@ -22,7 +22,7 @@ exports.add_order = function (req, res) {
 };
 
 exports.get_order = function (req, res) {
-    Order.findById(req.params.OrderID, function (err, order) {
+    Order.findById(req.params.orderID, function (err, order) {
         if (err)
             res.send(err);
         res.json(order)
@@ -30,7 +30,7 @@ exports.get_order = function (req, res) {
     });
 };
 exports.update_order = function (req, res) {
-    Order.findOneAndUpdate({_id: req.params.OrderID}, req.body, {new: true}, function (err, order) {
+    Order.findOneAndUpdate({_id: req.params.orderID}, req.body, {new: true}, function (err, order) {
         if (err)
             res.send(err);
         res.json(order);
