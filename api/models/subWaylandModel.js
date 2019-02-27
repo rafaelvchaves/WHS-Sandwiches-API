@@ -60,8 +60,12 @@ var OrderSchema = new Schema({
         required: 'Specify whether the order is a favorite order',
         default: false
     },
-    ingredients: [IngredientOrderSchema], //An Order will be an array of IngredientOrders.
-
+    ingredients: {
+        type: [IngredientSchema],
+        default: undefined, //by default, the array was simply empty, which wasn't recognized as an error.
+        // Defaulting this to undefined means that an error will be thrown if no ingredients are added to an order.
+        required: 'Add ingredients to this order'
+    },
     which_lunch: {
         type: Number,
         required: 'Specify which lunch student is taking'
