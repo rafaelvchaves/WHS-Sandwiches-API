@@ -105,9 +105,9 @@ describe('TESTING ORDERS API', function () {
     describe('Testing .get (specific id)', function () {
         it('should get an order by the given id', function (done) {
             var order = new Order({
-                date: '2001-08-16T12:13:44.555Z',
-                student_email: 'rafaelvchaves@gmail.com',
-                // is_favorite: false,
+                date: '2001-08-16',
+                student_email: 'rafavchaves@gmail.com',
+                is_favorite: true,
                 ingredients: [{
                     ingredient_type_id: '5c7614cc34b37ea27789161b',
                     name: 'ham',
@@ -120,12 +120,10 @@ describe('TESTING ORDERS API', function () {
                     .get('/orders/' + order._id)
                     .end(function (err, res) {
                         console.log(res.body);
-                        should.not.exist(err);
                         res.should.have.status(200);
                         res.body.should.be.a('object');
-                        res.body.should.have.property('name');
-                        res.body.should.have.property('limit');
-                        res.body.should.have.property('_id').eql(ingredient_type._id.toString());
+                        res.body.should.have.property('date');
+                        res.body.should.have.property('_id').eql(order._id.toString());
                         done();
                     });
             });
@@ -133,44 +131,45 @@ describe('TESTING ORDERS API', function () {
         });
     });
 
-    // describe('Testing .put', function () {
-    //     it('should update an order given the id', function (done) {
-    //         var order = new Order({
-    //             date: '2001-08-16T12:13:44.555Z',
-    //             student_email: 'rafaelvchaves@gmail.com',
-    //             ingredients: [{
-    //                 ingredient_type_id: '5c7614cc34b37ea27789161b',
-    //                 name: 'ham',
-    //                 is_available: true
-    //             }],
-    //             which_lunch: 1
-    //         });
-    //         var updated_order = {
-    //             date: '2001-08-16T12:13:44.555Z',
-    //             student_email: 'rafaelvchaves@gmail.com',
-    //             ingredients: [{
-    //                 ingredient_type_id: '5c7614cc34b37ea27789161b',
-    //                 name: 'ham',
-    //                 is_available: true
-    //             }],
-    //             which_lunch: 3
-    //         };
-    //         order.save(function (err, ingredient_type) {
-    //             chai.request(app)
-    //                 .put('/order/' + order._id)
-    //                 .send(updated_order)
-    //                 .end(function (err, res) {
-    //                     console.log(res.body);
-    //                     res.should.have.status(200);
-    //                     res.body.should.be.a('object');
-    //                     // res.body.should.have.property('name');
-    //                     res.body.should.have.property('which_lunch').eql(3);
-    //                     res.body.should.have.property('_id').eql(order._id.toString());
-    //                     done();
-    //                 });
-    //         });
-    //     });
-    // });
+    describe('Testing .put', function () {
+        it('should update an order given the id', function (done) {
+            var order = new Order({
+                date: '2001-08-16',
+                student_email: 'rafavchaves@gmail.com',
+                ingredients: [{
+                    ingredient_type_id: '5c7614cc34b37ea27789161b',
+                    name: 'ham',
+                    is_available: true
+                }],
+                which_lunch: 1
+            });
+            var updated_order = {
+                date: '2001-08-16',
+                is_favorite: true,
+                student_email: 'rafavchaves@gmail.com',
+                ingredients: [{
+                    ingredient_type_id: '5c7614cc34b37ea27789161b',
+                    name: 'ham',
+                    is_available: true
+                }],
+                which_lunch: 3
+            };
+            order.save(function (err, order) {
+                chai.request(app)
+                    .put('/orders/' + order._id)
+                    .send(updated_order)
+                    .end(function (err, res) {
+                        console.log(order);
+                        console.log(res.body);
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('which_lunch').eql(3);
+                        res.body.should.have.property('_id').eql(order._id.toString());
+                        done();
+                    });
+            });
+        });
+    });
 
 
 
