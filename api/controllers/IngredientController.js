@@ -1,8 +1,7 @@
-'use strict'; //'use strict' simply prevents certain actions from being taken and throws more exceptions and
-//catches some common coding bloopers, throwing exceptions.
+'use strict';
 
 var mongoose = require('mongoose'), //the require() method means that we will use the set of functions from a specified node module.
-    Ingredient = mongoose.model('Ingredients'); //the data model that is made from the IngredientSchema (look in subWaylandModel.js)
+    Ingredient = mongoose.model('Ingredients'); //data model made from the IngredientSchema
 
 
 //Below, we are building the four controller functions that we referenced in the subWaylandRoutes.js file
@@ -31,7 +30,6 @@ exports.add_ingredient = function (req, res) { //this function will allow us to 
     });
 };
 
-
 exports.get_ingredient = function (req, res) { //this function will give us an individual ingredient (specified by an Id that mongoose generates).
     Ingredient.findById(req.params.ingredientID, function (err, ingredient) {
         if (err)
@@ -40,10 +38,21 @@ exports.get_ingredient = function (req, res) { //this function will give us an i
 
     });
 };
+
 exports.update_ingredient = function (req, res) { //this will allow us to update an ingredient, which will be particularly useful when we need to say that it's not available.
     Ingredient.findOneAndUpdate({_id: req.params.ingredientID}, req.body, {new: true}, function (err, ingredient) {
         if (err)
             res.send(err);
         res.json(ingredient);
     })
+};
+
+exports.delete_ingredient = function(req, res) {
+    Ingredient.deleteOne({
+        _id: req.params.ingredientID
+    }, function(err, ingredient) {
+        if (err)
+            res.send(err);
+        res.json({ message: 'Ingredient successfully deleted!' });
+    });
 };

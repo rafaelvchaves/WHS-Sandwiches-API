@@ -62,7 +62,7 @@ describe('TESTING INGREDIENTS API', function () {
             var ingredient = {
                 ingredient_type_id: '5c7613fc3e1a71a26cf51003', //can't just put anything in here, needs to be a real ID.
                 name: 'ciabatta',
-                is_available: true //this doesn't need to be added unless we are setting it to be false
+                is_available: false //this doesn't need to be added unless we are setting it to be false
             };
             chai.request(app)
                 .post('/ingredients')
@@ -134,9 +134,27 @@ describe('TESTING INGREDIENTS API', function () {
         });
     });
 
-
-
-
-
+    describe('Testing .delete', function () {
+        it('should delete an ingredient given the id', function (done) {
+            var ingredient = new Ingredient({
+                ingredient_type_id: '5c7614cc34b37ea27789161b',
+                name: 'ham',
+                is_available: false
+            });
+            ingredient.save(function (err, ingredient) {
+                chai.request(app)
+                    .delete('/ingredients/' + ingredient._id)
+                    .end(function (err, res) {
+                        console.log(res.body.result);
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('message').eql('Ingredient successfully deleted!');
+                        // res.body.result.should.have.property('ok').eql(1);
+                        // res.body.result.should.have.property('n').eql(1);
+                        done();
+                    });
+            })
+        });
+    });
 
 });

@@ -36,3 +36,13 @@ exports.update_order = function (req, res) {
         res.json(order);
     })
 };
+
+exports.delete_order = function(req, res) {
+    Order.deleteOne({
+        _id: req.params.orderID
+    }, function(err, order) {
+        if (err)
+            res.send(err);
+        res.json({ message: 'Order successfully deleted!' });
+    });
+};

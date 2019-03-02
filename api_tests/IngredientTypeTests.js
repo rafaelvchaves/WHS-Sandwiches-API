@@ -10,7 +10,6 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 var IngredientType = mongoose.model('IngredientTypes');
-
 chai.use(chaiHttp);
 
 describe('TESTING INGREDIENT TYPES API', function () {
@@ -128,7 +127,27 @@ describe('TESTING INGREDIENT TYPES API', function () {
         });
     });
 
+    describe('Testing .delete', function () {
+        it('should delete an ingredient type given the id', function (done) {
+            var ingredient_type = new IngredientType({
+                name: 'meat',
+                limit: 3
+            });
+            ingredient_type.save(function (err, ingredient_type) {
+                chai.request(app)
+                    .delete('/ingredient_types/' + ingredient_type._id)
+                    .end(function (err, res) {
+                        console.log(res.body.result);
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('message').eql('Ingredient type successfully deleted!');
+                        // res.body.result.should.have.property('ok').eql(1);
+                        // res.body.result.should.have.property('n').eql(1);
+                        done();
+                    });
+            })
+        });
+    });
+
 });
-
-
 
