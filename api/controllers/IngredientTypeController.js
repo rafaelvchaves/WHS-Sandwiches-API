@@ -1,11 +1,11 @@
 'use strict';
-var mongoose = require('mongoose'), //the require() method means that we will use the set of functions from a specified node module.
-    IngredientType = mongoose.model('IngredientTypes'); //the data model that is made from the IngredientTypeSchema (look in subWaylandModel.js)
+var mongoose = require('mongoose'),
+    IngredientType = mongoose.model('IngredientTypes');
 
-//again, we are defining the controller functions referenced in subWaylandRoutes.js by using the mongoose functions find, save, findById, and findOneAndUpdate
-//these functions have an identical setup to the IngredientController functions
+// Identical setup to the IngredientController functions.
 
-exports.get_ingredient_types = function (req, res) { //lists all of the ingredient TYPES (bread, meat, cheese, toppings, sauce)
+// Gets all of the ingredient TYPES (e.g. bread, meat, cheese, toppings, sauce).
+exports.get_ingredient_types = function (req, res) {
     IngredientType.find({}, function (err, ingredient_type) {
         if (err)
             res.send(err);
@@ -14,7 +14,8 @@ exports.get_ingredient_types = function (req, res) { //lists all of the ingredie
     });
 };
 
-exports.add_ingredient_type = function (req, res) { //adds an ingredient type
+// Adds an ingredient type.
+exports.add_ingredient_type = function (req, res) {
     var new_ingredient_type = new IngredientType(req.body);
     new_ingredient_type.save(function (err, ingredient_type) {
         if (err)
@@ -24,7 +25,8 @@ exports.add_ingredient_type = function (req, res) { //adds an ingredient type
     });
 };
 
-exports.get_ingredient_type = function (req, res) { //gets the TYPE of one ingredient (e.g. bread)
+// Gets the type of one ingredient (e.g. bread).
+exports.get_ingredient_type = function (req, res) {
     IngredientType.findById(req.params.ingredientTypeID, function (err, ingredient_type) {
         if (err)
             res.send(err);
@@ -33,7 +35,8 @@ exports.get_ingredient_type = function (req, res) { //gets the TYPE of one ingre
     });
 };
 
-exports.update_ingredient_type = function (req, res) { //updates the ingredient type
+// Updates an ingredient type.
+exports.update_ingredient_type = function (req, res) {
     IngredientType.findOneAndUpdate({_id: req.params.ingredientTypeID}, req.body, {new: true}, function (err, ingredient_type) {
         if (err)
             res.send(err);
@@ -41,12 +44,13 @@ exports.update_ingredient_type = function (req, res) { //updates the ingredient 
     })
 };
 
-exports.delete_ingredient_type = function(req, res) {
+// Deletes an ingredient type.
+exports.delete_ingredient_type = function (req, res) {
     IngredientType.deleteOne({
         _id: req.params.ingredientTypeID
-    }, function(err, ingredient_type) {
+    }, function (err, ingredient_type) {
         if (err)
             res.send(err);
-        res.json({ message: 'Ingredient type successfully deleted!' });
+        res.json({message: 'Ingredient type successfully deleted!'});
     });
 };

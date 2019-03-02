@@ -1,6 +1,5 @@
 var assert = require('assert');
 var expect = require('chai').expect;
-// var request = require('supertest');
 var app = require('../server');
 var chaiHttp = require('chai-http');
 var chai = require('chai');
@@ -9,13 +8,14 @@ var mongoose = require('mongoose');
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
-
+chai.use(chaiHttp);
 var Order = mongoose.model('Orders');
 
-chai.use(chaiHttp);
+// Here, we are testing to make sure that the Order controller functions that we made are working properly.
 
 describe('TESTING ORDERS API', function () {
 
+    // Before running a test, clear the database.
     beforeEach(function (done) {
         Order.deleteMany({}, function (err) {
             done();
@@ -191,17 +191,11 @@ describe('TESTING ORDERS API', function () {
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         res.body.should.have.property('message').eql('Order successfully deleted!');
-                        // res.body.result.should.have.property('ok').eql(1);
-                        // res.body.result.should.have.property('n').eql(1);
                         done();
                     });
             })
         });
     });
-
-
-
-
 
 
 });

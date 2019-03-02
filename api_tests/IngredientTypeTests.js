@@ -1,6 +1,5 @@
 var assert = require('assert');
 var expect = require('chai').expect;
-// var request = require('supertest');
 var app = require('../server');
 var chaiHttp = require('chai-http');
 var chai = require('chai');
@@ -9,10 +8,14 @@ var mongoose = require('mongoose');
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
-var IngredientType = mongoose.model('IngredientTypes');
 chai.use(chaiHttp);
+var IngredientType = mongoose.model('IngredientTypes');
+
+// Here, we are testing to make sure that the IngredientType controller functions that we made are working properly.
 
 describe('TESTING INGREDIENT TYPES API', function () {
+
+    // Before running a test, clear the database.
     beforeEach(function (done) {
         IngredientType.deleteMany({}, function (err) {
             done();
@@ -70,7 +73,6 @@ describe('TESTING INGREDIENT TYPES API', function () {
                     res.body.should.have.property('name');
                     res.body.should.have.property('limit');
                     res.body.should.have.property('limit').eql(1);
-                    // res.body.errors.limit.should.have.property('kind').eql('required');
                     done();
                 });
 
@@ -141,8 +143,6 @@ describe('TESTING INGREDIENT TYPES API', function () {
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         res.body.should.have.property('message').eql('Ingredient type successfully deleted!');
-                        // res.body.result.should.have.property('ok').eql(1);
-                        // res.body.result.should.have.property('n').eql(1);
                         done();
                     });
             })
