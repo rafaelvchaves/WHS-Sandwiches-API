@@ -36,14 +36,6 @@ var IngredientSchema = new Schema({
 
 });
 
-var IngredientOrderSchema = new Schema( { //Represents individual ingredients in an order, with an ID and a quantity.
-    ingredient_id: {
-        type: Schema.Types.ObjectId
-    },
-    quantity: {
-        type: Number
-    }
-});
 
 //Each order will have a date, student email/name, is_favorite boolean, array of IngredientOrders, a lunch (1st, 2nd, 3rd), and a boolean if the order is cancelled.
 var OrderSchema = new Schema({

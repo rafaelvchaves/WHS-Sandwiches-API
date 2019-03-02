@@ -171,6 +171,34 @@ describe('TESTING ORDERS API', function () {
         });
     });
 
+    describe('Testing .delete', function () {
+        it('should delete an order given the id', function (done) {
+            var order = new Order({
+                date: '2001-08-16',
+                student_email: 'rafavchaves@gmail.com',
+                ingredients: [{
+                    ingredient_type_id: '5c7614cc34b37ea27789161b',
+                    name: 'ham',
+                    is_available: true
+                }],
+                which_lunch: 1
+            });
+            order.save(function (err, order) {
+                chai.request(app)
+                    .delete('/orders/' + order._id)
+                    .end(function (err, res) {
+                        console.log(res.body.result);
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('message').eql('Order successfully deleted!');
+                        // res.body.result.should.have.property('ok').eql(1);
+                        // res.body.result.should.have.property('n').eql(1);
+                        done();
+                    });
+            })
+        });
+    });
+
 
 
 

@@ -24,7 +24,7 @@ exports.add_ingredient_type = function (req, res) { //adds an ingredient type
     });
 };
 
-exports.get_ingredient_type = function (req, res) { //gets the type of one ingredient (e.g. bread)
+exports.get_ingredient_type = function (req, res) { //gets the TYPE of one ingredient (e.g. bread)
     IngredientType.findById(req.params.ingredientTypeID, function (err, ingredient_type) {
         if (err)
             res.send(err);
@@ -39,4 +39,14 @@ exports.update_ingredient_type = function (req, res) { //updates the ingredient 
             res.send(err);
         res.json(ingredient_type);
     })
+};
+
+exports.delete_ingredient_type = function(req, res) {
+    IngredientType.deleteOne({
+        _id: req.params.ingredientTypeID
+    }, function(err, ingredient_type) {
+        if (err)
+            res.send(err);
+        res.json({ message: 'Ingredient type successfully deleted!' });
+    });
 };

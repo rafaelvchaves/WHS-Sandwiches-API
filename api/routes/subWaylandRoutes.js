@@ -20,19 +20,23 @@ module.exports = function (app) /*means that the file will be exported as a func
         .post(IngredientTypeController.add_ingredient_type);
     app.route('/ingredient_types/:ingredientTypeID')
         .get(IngredientTypeController.get_ingredient_type)
-        .put(IngredientTypeController.update_ingredient_type);
+        .put(IngredientTypeController.update_ingredient_type)
+        .delete(IngredientTypeController.delete_ingredient_type);
 
     app.route('/ingredients')
         .get(IngredientController.get_ingredients)
         .post(IngredientController.add_ingredient);
     app.route('/ingredients/:ingredientID')
         .get(IngredientController.get_ingredient)
-        .put(IngredientController.update_ingredient);
+        .put(IngredientController.update_ingredient)
+        .delete(IngredientController.delete_ingredient);
+
 
     app.route('/orders')
         .get(OrderController.get_orders)
         .post(OrderController.add_order);
     app.route('/orders/:orderID')
         .get(OrderController.get_order)
-        .put(OrderController.update_order);
+        .put(OrderController.update_order)
+        .delete(OrderController.delete_order);
 };
