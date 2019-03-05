@@ -2,21 +2,24 @@ var express = require('express'),
     app = express(),
     port = process.env.PORT || 3000,
     mongoose = require('mongoose'),
-    Ingredient = require('./api/models/subWaylandModel'), //our models
+    models = require('./api/models/subWaylandModel'),
     bodyParser = require('body-parser');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/SubWaylandDB', { useNewUrlParser: true }); //connect to the DB
 
-app.use(bodyParser.urlencoded({extended: true }));
+// Connect to the database (subWaylandDB).
+mongoose.connect('mongodb://localhost/subWaylandDB', {useNewUrlParser: true});
+
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+// Imported as function with app parameter.
+var routes = require('./api/routes/subWaylandRoutes');
 
-var routes = require('./api/routes/subWaylandRoutes'); //grab the routes
+// Register the routes.
 routes(app);
-
 
 app.listen(port);
 
-console.log('subWayland RESTful API server started on: '+ port);
+console.log('subWayland RESTful API server started on: ' + port);
 module.exports = app;

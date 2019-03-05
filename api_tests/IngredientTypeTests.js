@@ -1,6 +1,5 @@
 var assert = require('assert');
 var expect = require('chai').expect;
-// var request = require('supertest');
 var app = require('../server');
 var chaiHttp = require('chai-http');
 var chai = require('chai');
@@ -9,11 +8,14 @@ var mongoose = require('mongoose');
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
+chai.use(chaiHttp);
 var IngredientType = mongoose.model('IngredientTypes');
 
-chai.use(chaiHttp);
+// Here, we are testing to make sure that the IngredientType controller functions that we made are working properly.
 
 describe('TESTING INGREDIENT TYPES API', function () {
+
+    // Before running a test, clear the database.
     beforeEach(function (done) {
         IngredientType.deleteMany({}, function (err) {
             done();
@@ -71,7 +73,6 @@ describe('TESTING INGREDIENT TYPES API', function () {
                     res.body.should.have.property('name');
                     res.body.should.have.property('limit');
                     res.body.should.have.property('limit').eql(1);
-                    // res.body.errors.limit.should.have.property('kind').eql('required');
                     done();
                 });
 
@@ -128,7 +129,25 @@ describe('TESTING INGREDIENT TYPES API', function () {
         });
     });
 
+    describe('Testing .delete', function () {
+        it('should delete an ingredient type given the id', function (done) {
+            var ingredient_type = new IngredientType({
+                name: 'meat',
+                limit: 3
+            });
+            ingredient_type.save(function (err, ingredient_type) {
+                chai.request(app)
+                    .delete('/ingredient_types/' + ingredient_type._id)
+                    .end(function (err, res) {
+                        console.log(res.body.result);
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('message').eql('Ingredient type successfully deleted!');
+                        done();
+                    });
+            })
+        });
+    });
+
 });
-
-
 
