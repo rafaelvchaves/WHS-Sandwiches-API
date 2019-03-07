@@ -14,6 +14,7 @@ seeder.connect('mongodb://localhost/subWaylandDB', function () {
 
         // Callback to populate DB once collections have been cleared.
         seeder.populateModels(data, function () {
+            console.log('Seeded');
             seeder.disconnect();
         });
 
@@ -67,6 +68,16 @@ var data = [
             {
                 'ingredient_type_id': bread_id,
                 'name': 'Ciabatta',
+                'is_available': true
+            },
+            {
+                'ingredient_type_id': bread_id,
+                'name': 'Wheat',
+                'is_available': true
+            },
+            {
+                'ingredient_type_id': cheese_id,
+                'name': 'White',
                 'is_available': true
             },
             {

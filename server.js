@@ -7,6 +7,12 @@ var express = require('express'),
 
 mongoose.Promise = global.Promise;
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 // Connect to the database (subWaylandDB).
 mongoose.connect('mongodb://localhost/subWaylandDB', {useNewUrlParser: true});
 
