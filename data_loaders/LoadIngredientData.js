@@ -21,7 +21,7 @@ seeder.connect('mongodb://localhost/subWaylandDB', function () {
     });
 });
 
-// Hold on to ingredient type IDs so that they can be referenced in the ingredients documents.
+// Create ingredient type IDs and hold on to them so that they can be referenced in the ingredients collection.
 bread_id = ObjectId();
 meat_id = ObjectId();
 cheese_id = ObjectId();
@@ -73,11 +73,6 @@ var data = [
             {
                 'ingredient_type_id': bread_id,
                 'name': 'Wheat',
-                'is_available': true
-            },
-            {
-                'ingredient_type_id': cheese_id,
-                'name': 'White',
                 'is_available': true
             },
             {

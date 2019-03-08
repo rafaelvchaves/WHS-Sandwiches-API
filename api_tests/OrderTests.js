@@ -59,9 +59,7 @@ describe('TESTING ORDERS API', function () {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('errors');
-                    res.body.errors.should.have.property('date');
                     res.body.errors.should.have.property('ingredients');
-                    res.body.errors.date.should.have.property('kind').eql('required');
                     done();
                 });
 
@@ -71,7 +69,6 @@ describe('TESTING ORDERS API', function () {
     describe('Testing .post (positive)', function () {
         it('should add an order', function (done) {
             var order = {
-                date: '2001-08-16T12:13:44.555Z',
                 student_email: 'rafaelvchaves@gmail.com',
                 // is_favorite: false,
                 ingredients: [{
@@ -105,7 +102,6 @@ describe('TESTING ORDERS API', function () {
     describe('Testing .get (specific id)', function () {
         it('should get an order by the given id', function (done) {
             var order = new Order({
-                date: '2001-08-16',
                 student_email: 'rafavchaves@gmail.com',
                 is_favorite: true,
                 ingredients: [{
@@ -134,7 +130,6 @@ describe('TESTING ORDERS API', function () {
     describe('Testing .put', function () {
         it('should update an order given the id', function (done) {
             var order = new Order({
-                date: '2001-08-16',
                 student_email: 'rafavchaves@gmail.com',
                 ingredients: [{
                     ingredient_type_id: '5c7614cc34b37ea27789161b',
@@ -144,7 +139,6 @@ describe('TESTING ORDERS API', function () {
                 which_lunch: 1
             });
             var updated_order = {
-                date: '2001-08-16',
                 is_favorite: true,
                 student_email: 'rafavchaves@gmail.com',
                 ingredients: [{
@@ -174,7 +168,6 @@ describe('TESTING ORDERS API', function () {
     describe('Testing .delete', function () {
         it('should delete an order given the id', function (done) {
             var order = new Order({
-                date: '2001-08-16',
                 student_email: 'rafavchaves@gmail.com',
                 ingredients: [{
                     ingredient_type_id: '5c7614cc34b37ea27789161b',

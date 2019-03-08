@@ -40,7 +40,8 @@ var IngredientSchema = new Schema({
 var OrderSchema = new Schema({
     date: {
         type: Date,
-        required: 'Enter the date of order'
+        required: 'Enter the date of order',
+        default: Date.now() // Automatically sets to current date.
     },
     student_email: {
         type: String,
