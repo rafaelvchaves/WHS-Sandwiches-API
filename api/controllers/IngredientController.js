@@ -20,8 +20,8 @@ exports.get_ingredients = function (req, res) {
 
 // Adds an ingredient to the list.
 exports.add_ingredient = function (req, res) {
-    var new_ingredient = new Ingredient(req.body); //make a new Ingredient
-    new_ingredient.save(function (err, ingredient) { //use the mongoose save method to save the ingredient
+    var new_ingredient = new Ingredient(req.body);
+    new_ingredient.save(function (err, ingredient) {
         if (err)
             res.send(err);
         res.json(ingredient)
