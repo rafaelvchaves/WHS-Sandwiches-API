@@ -99,9 +99,20 @@ describe('TESTING ORDERS API', function () {
         });
     });
 
-    describe('Testing .get (specific id)', function () {
-        it('should get an order by the given id', function (done) {
-            var order = new Order({
+    describe('Testing .get with query', function () {
+        it('should find order given query', function (done) {
+            var order1 = new Order({
+                student_email: 'rafavchaves@gmail.com',
+                is_favorite: false,
+                ingredients: [{
+                    ingredient_type_id: '5c7614cc34b37ea27789161b',
+                    name: 'ham',
+                    is_available: true
+                }],
+                which_lunch: 1
+            });
+            order1.save();
+            var order2 = new Order({
                 student_email: 'rafavchaves@gmail.com',
                 is_favorite: true,
                 ingredients: [{
@@ -111,18 +122,16 @@ describe('TESTING ORDERS API', function () {
                 }],
                 which_lunch: 1
             });
-            order.save(function (err, order) {
-                chai.request(app)
-                    .get('/orders/' + order._id)
-                    .end(function (err, res) {
-                        console.log(res.body);
-                        res.should.have.status(200);
-                        res.body.should.be.a('object');
-                        res.body.should.have.property('date');
-                        res.body.should.have.property('_id').eql(order._id.toString());
-                        done();
-                    });
-            });
+            order2.save();
+            chai.request(app)
+                .get('/orders').query({is_favorite: true})
+                .end(function (err, res) {
+                    console.log(res.body);
+                    res.should.have.status(200);
+                    res.body.should.be.a('array').with.length(1);
+                    done();
+                });
+
 
         });
     });
@@ -180,7 +189,7 @@ describe('TESTING ORDERS API', function () {
                 chai.request(app)
                     .delete('/orders/' + order._id)
                     .end(function (err, res) {
-                        console.log(res.body.result);
+                        console.log(res.body);
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         res.body.should.have.property('message').eql('Order successfully deleted!');

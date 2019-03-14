@@ -6,7 +6,11 @@ var mongoose = require('mongoose'),
 
 // Gets all of the ingredient TYPES (e.g. bread, meat, cheese, toppings, sauce).
 exports.get_ingredient_types = function (req, res) {
-    IngredientType.find({}, function (err, ingredient_type) {
+    IngredientType.find({}, [], {
+        sort: {
+            _id: 1
+        }
+    }, function (err, ingredient_type) {
         if (err)
             res.send(err);
         res.json(ingredient_type)

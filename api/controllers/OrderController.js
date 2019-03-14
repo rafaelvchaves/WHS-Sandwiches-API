@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
 
 // Gets list of all orders.
 exports.get_orders = function (req, res) {
-    Order.find({}, function (err, ingredient) {
+    Order.find(req.query, function (err, ingredient) {
         if (err)
             res.send(err);
         res.json(ingredient)
