@@ -3,15 +3,10 @@ var express = require('express'),
     port = process.env.PORT || 3000,
     mongoose = require('mongoose'),
     models = require('./api/models/subWaylandModel'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+cookieParser = require('cookie-parser');
 
 mongoose.Promise = global.Promise;
-// app.all('*', function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//     res.header('Access-Control-Allow-Headers', 'Content-Type');
-//     next();
-// });
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -24,7 +19,7 @@ mongoose.connect('mongodb://localhost/subWaylandDB', {useNewUrlParser: true});
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-
+app.use(cookieParser());
 // Imported as function with app parameter.
 var routes = require('./api/routes/subWaylandRoutes');
 
