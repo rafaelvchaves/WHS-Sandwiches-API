@@ -68,11 +68,31 @@ var data = [
             {
                 'ingredient_type_id': bread_id,
                 'name': 'Ciabatta',
-                'is_available': true
+                'is_available': false
             },
             {
                 'ingredient_type_id': bread_id,
                 'name': 'Wheat',
+                'is_available': false
+            },
+            {
+                'ingredient_type_id': bread_id,
+                'name': 'White',
+                'is_available': true
+            },
+            {
+                'ingredient_type_id': bread_id,
+                'name': 'Spinach Wrap',
+                'is_available': true
+            },
+            {
+                'ingredient_type_id': bread_id,
+                'name': 'Tomato Wrap',
+                'is_available': true
+            },
+            {
+                'ingredient_type_id': bread_id,
+                'name': 'Wheat Wrap',
                 'is_available': true
             },
             {
@@ -81,13 +101,61 @@ var data = [
                 'is_available': true
             },
             {
+                'ingredient_type_id': meat_id,
+                'name': 'Turkey',
+                'is_available': true
+            },
+            {
+                'ingredient_type_id': meat_id,
+                'name': 'Roast Beef',
+                'is_available': true
+            },
+            {
+                'ingredient_type_id': meat_id,
+                'name': 'Buffalo Chicken',
+                'is_available': true
+            },
+            {
                 'ingredient_type_id': cheese_id,
                 'name': 'Provolone',
                 'is_available': true
             },
             {
+                'ingredient_type_id': cheese_id,
+                'name': 'American',
+                'is_available': true
+            },            {
+                'ingredient_type_id': cheese_id,
+                'name': 'Cheddar',
+                'is_available': true
+            },            {
+                'ingredient_type_id': cheese_id,
+                'name': 'Swiss',
+                'is_available': true
+            },
+            {
+                'ingredient_type_id': cheese_id,
+                'name': 'Pepper Jack',
+                'is_available': true
+            },
+            {
                 'ingredient_type_id': toppings_id,
                 'name': 'Lettuce',
+                'is_available': true
+            },
+            {
+                'ingredient_type_id': toppings_id,
+                'name': 'Jalapeños',
+                'is_available': true
+            },
+            {
+                'ingredient_type_id': toppings_id,
+                'name': 'Tomatoes',
+                'is_available': true
+            },
+            {
+                'ingredient_type_id': toppings_id,
+                'name': 'Pickles',
                 'is_available': true
             },
             {
