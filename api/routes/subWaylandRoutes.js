@@ -9,6 +9,7 @@ module.exports = function (app) {
     var IngredientTypeController = require('../controllers/IngredientTypeController');
     var IngredientController = require('../controllers/IngredientController');
     var OrderController = require('../controllers/OrderController');
+    var FavoriteOrderController = require('../controllers/FavoriteOrderController');
 
 // .get, .put (update), .post (create), and .delete: 4 http methods/verbs
 // Under each of these routes, we define the different verbs supported on that route, and we assign a controller function to handle those requests.
@@ -39,4 +40,10 @@ module.exports = function (app) {
         .get(OrderController.get_order)
         .put(OrderController.update_order)
         .delete(OrderController.delete_order);
+    app.route('/favorite_orders')
+        .get(FavoriteOrderController.get_favorite_orders)
+        .post(FavoriteOrderController.add_favorite_order);
+    app.route('/favorite_orders/:favoriteOrderID')
+        .get(FavoriteOrderController.get_favorite_order)
+        .delete(FavoriteOrderController.delete_favorite_order);
 };
