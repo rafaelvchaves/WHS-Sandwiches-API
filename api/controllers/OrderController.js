@@ -1,13 +1,34 @@
 'use strict';
-var mongoose = require('mongoose'),
-    Order = mongoose.model('Orders');
+var mongoose = require('mongoose');
+var Order = mongoose.model('Orders');
 
 // Gets list of all orders.
 exports.get_orders = function (req, res) {
-    Order.find(req.query, function (err, ingredient) {
+
+    var filter = {};
+    var sort = {};
+    for (var param in req.query) {
+        // param = field
+        // req.query[param] = value
+        // console.log(param, req.query[param]);
+        if (param === "daysOfOrders") {
+            var today = new Date();
+            var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - req.query["daysOfOrders"]);
+            filter["date"] = { $gt: lastWeek }
+        }
+        else if (param === "sort") {
+            sort = req.query["sort"]
+        }
+        else {
+            filter[param] = req.query[param]
+        }
+    }
+    console.log(filter);
+
+    Order.find(filter, [], {sort: sort}, function (err, order) {
         if (err)
             res.send(err);
-        res.json(ingredient)
+        res.json(order)
 
     });
 };
