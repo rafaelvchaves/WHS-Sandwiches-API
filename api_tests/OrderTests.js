@@ -38,10 +38,9 @@ describe('TESTING ORDERS API', function () {
     });
 
     describe('Testing .post (negative)', function () {
-        it('should not add an order without a date', function (done) {
+        it('should not add an order without ingredients', function (done) {
             var order = {
                 student_email: 'rafaelvchaves@gmail.com',
-                is_favorite: false,
                 // ingredients: [
                 //     {
                 //     ingredient_type_id: '5c7614cc34b37ea27789161b',
@@ -70,14 +69,12 @@ describe('TESTING ORDERS API', function () {
         it('should add an order', function (done) {
             var order = {
                 student_email: 'rafaelvchaves@gmail.com',
-                // is_favorite: false,
                 ingredients: [{
                     ingredient_type_id: '5c7614cc34b37ea27789161b',
                     name: 'ham',
                     is_available: true
                 }],
                 which_lunch: 1
-                // is_cancelled: false
             };
             chai.request(app)
                 .post('/orders')
@@ -88,7 +85,6 @@ describe('TESTING ORDERS API', function () {
                     res.body.should.be.a('object');
                     res.body.should.have.property('date');
                     res.body.should.have.property('student_email');
-                    res.body.should.have.property('is_favorite');
                     res.body.should.have.property('ingredients');
                     res.body.should.have.property('which_lunch');
                     res.body.should.have.property('is_cancelled');
@@ -103,7 +99,6 @@ describe('TESTING ORDERS API', function () {
         it('should find order given query', function (done) {
             var order1 = new Order({
                 student_email: 'rafavchaves@gmail.com',
-                is_favorite: false,
                 ingredients: [{
                     ingredient_type_id: '5c7614cc34b37ea27789161b',
                     name: 'ham',
@@ -113,8 +108,7 @@ describe('TESTING ORDERS API', function () {
             });
             order1.save();
             var order2 = new Order({
-                student_email: 'rafavchaves@gmail.com',
-                is_favorite: true,
+                student_email: 'rafaelvchaves@gmail.com',
                 ingredients: [{
                     ingredient_type_id: '5c7614cc34b37ea27789161b',
                     name: 'ham',
@@ -124,7 +118,7 @@ describe('TESTING ORDERS API', function () {
             });
             order2.save();
             chai.request(app)
-                .get('/orders').query({is_favorite: true})
+                .get('/orders').query({student_email: 'rafaelvchaves@gmail.com'})
                 .end(function (err, res) {
                     console.log(res.body);
                     res.should.have.status(200);
@@ -148,7 +142,6 @@ describe('TESTING ORDERS API', function () {
                 which_lunch: 1
             });
             var updated_order = {
-                is_favorite: true,
                 student_email: 'rafavchaves@gmail.com',
                 ingredients: [{
                     ingredient_type_id: '5c7614cc34b37ea27789161b',

@@ -12,9 +12,13 @@ var IngredientTypeSchema = new Schema({
         type: String,
         required: 'Enter the type of ingredient'
     },
-    limit: {
+    minimum: {
         type: Number,
-        required: 'Enter the limit on this ingredient'
+        required: 'Enter the minimum of this ingredient type'
+    },
+    maximum: {
+        type: Number,
+        required: 'Enter the maximum of this ingredient type'
     }
 });
 
@@ -40,17 +44,13 @@ var IngredientSchema = new Schema({
 var OrderSchema = new Schema({
     date: {
         type: Date,
+        default: new Date(),
         required: 'Enter the date of order'
     },
     student_email: {
         type: String,
         required: 'Enter the student email'
     },
-    // is_favorite: {
-    //     type: Boolean,
-    //     required: 'Specify whether the order is a favorite order',
-    //     default: false
-    // },
     ingredients: {
         type: [IngredientSchema],
         default: undefined, // By default, the array was simply empty, which wasn't recognized as an error.
@@ -87,5 +87,5 @@ var FavoriteOrderSchema = new Schema({
 // The .model() function makes a copy of the schema so it can be used elsewhere.
 module.exports = mongoose.model('Ingredients', IngredientSchema);
 module.exports = mongoose.model('Orders', OrderSchema);
-module.exports = mongoose.model('FavoriteOrders', OrderSchema);
+module.exports = mongoose.model('FavoriteOrders', FavoriteOrderSchema);
 module.exports = mongoose.model('IngredientTypes', IngredientTypeSchema);

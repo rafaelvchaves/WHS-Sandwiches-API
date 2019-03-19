@@ -147,7 +147,7 @@ describe('TESTING INGREDIENTS API', function () {
                 chai.request(app)
                     .delete('/ingredients/' + ingredient._id)
                     .end(function (err, res) {
-                        console.log(res.body.result);
+                        console.log(res.body);
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         res.body.should.have.property('message').eql('Ingredient successfully deleted!');

@@ -59,6 +59,6 @@ exports.delete_favorite_order = function (req, res) {
     }, function (err) {
         if (err)
             res.send(err);
-        res.json({message: 'Order successfully deleted!'});
+        res.json({message: 'Favorite Order successfully deleted!'});
     });
 };

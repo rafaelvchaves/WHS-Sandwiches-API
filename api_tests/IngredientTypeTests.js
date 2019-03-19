@@ -50,8 +50,9 @@ describe('TESTING INGREDIENT TYPES API', function () {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('errors');
-                    res.body.errors.should.have.property('limit');
-                    res.body.errors.limit.should.have.property('kind').eql('required');
+                    res.body.errors.should.have.property('minimum');
+                    res.body.errors.should.have.property('maximum');
+                    res.body.errors.maximum.should.have.property('kind').eql('required');
                     done();
                 });
 
@@ -61,7 +62,8 @@ describe('TESTING INGREDIENT TYPES API', function () {
         it('should add an ingredient type with a limit and name', function (done) {
             var ingredient_type = {
                 name: 'bread',
-                limit: 1
+                minimum: 1,
+                maximum: 1
             };
             chai.request(app)
                 .post('/ingredient_types')
@@ -71,8 +73,9 @@ describe('TESTING INGREDIENT TYPES API', function () {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('name');
-                    res.body.should.have.property('limit');
-                    res.body.should.have.property('limit').eql(1);
+                    res.body.should.have.property('minimum');
+                    res.body.should.have.property('maximum');
+                    res.body.should.have.property('maximum').eql(1);
                     done();
                 });
 
@@ -83,7 +86,8 @@ describe('TESTING INGREDIENT TYPES API', function () {
         it('should get an ingredient type by the given id', function (done) {
             var ingredient_type = new IngredientType({
                 name: 'meat',
-                limit: 3
+                minimum: 0,
+                maximum: 3
             });
             ingredient_type.save(function (err, ingredient_type) {
                 chai.request(app)
@@ -93,7 +97,8 @@ describe('TESTING INGREDIENT TYPES API', function () {
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         res.body.should.have.property('name');
-                        res.body.should.have.property('limit');
+                        res.body.should.have.property('minimum');
+                        res.body.should.have.property('maximum');
                         res.body.should.have.property('_id').eql(ingredient_type._id.toString());
                         done();
                     });
@@ -106,11 +111,13 @@ describe('TESTING INGREDIENT TYPES API', function () {
         it('should update an ingredient type given the id', function (done) {
             var ingredient_type = new IngredientType({
                 name: 'meat',
-                limit: 3
+                minimum: 0,
+                maximum: 3
             });
             var updated_ingredient_type = {
                 name: 'meat',
-                limit: 4
+                minimum: 0,
+                maximum: 4
             };
             ingredient_type.save(function (err, ingredient_type) {
                 chai.request(app)
@@ -120,8 +127,8 @@ describe('TESTING INGREDIENT TYPES API', function () {
                         console.log(res.body);
                         res.should.have.status(200);
                         res.body.should.be.a('object');
-                        // res.body.should.have.property('name');
-                        res.body.should.have.property('limit').eql(4);
+                        res.body.should.have.property('name');
+                        res.body.should.have.property('maximum').eql(4);
                         res.body.should.have.property('_id').eql(ingredient_type._id.toString());
                         done();
                     });
@@ -133,13 +140,14 @@ describe('TESTING INGREDIENT TYPES API', function () {
         it('should delete an ingredient type given the id', function (done) {
             var ingredient_type = new IngredientType({
                 name: 'meat',
-                limit: 3
+                minimum: 0,
+                maximum: 3
             });
             ingredient_type.save(function (err, ingredient_type) {
                 chai.request(app)
                     .delete('/ingredient_types/' + ingredient_type._id)
                     .end(function (err, res) {
-                        console.log(res.body.result);
+                        console.log(res.body);
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         res.body.should.have.property('message').eql('Ingredient type successfully deleted!');
