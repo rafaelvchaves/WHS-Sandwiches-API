@@ -37,27 +37,32 @@ var data = [
             {
                 '_id': bread_id,
                 'name': 'Bread',
-                'limit': 1
+                'minimum': 1,
+                'maximum': 1
             },
             {
                 '_id': meat_id,
                 'name': 'Meat',
-                'limit': 3
+                'minimum': 0,
+                'maximum': 3
             },
             {
                 '_id': cheese_id,
                 'name': 'Cheese',
-                'limit': 2
+                'minimum': 0,
+                'maximum': 2
             },
             {
                 '_id': toppings_id,
                 'name': 'Toppings',
-                'limit': 5
+                'minimum': 0,
+                'maximum': 5
             },
             {
                 '_id': sauce_id,
                 'name': 'Sauce',
-                'limit': 2
+                'minimum': 0,
+                'maximum': 2
             }
         ]
     },
@@ -68,12 +73,12 @@ var data = [
             {
                 'ingredient_type_id': bread_id,
                 'name': 'Ciabatta',
-                'is_available': false
+                'is_available': true
             },
             {
                 'ingredient_type_id': bread_id,
                 'name': 'Wheat',
-                'is_available': false
+                'is_available': true
             },
             {
                 'ingredient_type_id': bread_id,

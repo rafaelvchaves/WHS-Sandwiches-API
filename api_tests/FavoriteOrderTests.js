@@ -17,7 +17,7 @@ describe('TESTING FAVORITE ORDERS API', function () {
 
     // Before running a test, clear the database.
     beforeEach(function (done) {
-        FavoriteOrder.deleteMany({}, function (err) {
+        FavoriteOrder.deleteMany({}, function () {
             done();
         })
     });
@@ -25,7 +25,7 @@ describe('TESTING FAVORITE ORDERS API', function () {
     describe('Testing .get', function () {
         it('should return OK status', function (done) {
             chai.request(app)
-                .get('/orders')
+                .get('/favorite_orders')
                 .end(function (err, res) {
                     console.log(res.body);
                     res.should.have.status(200);
@@ -38,22 +38,14 @@ describe('TESTING FAVORITE ORDERS API', function () {
     });
 
     describe('Testing .post (negative)', function () {
-        it('should not add an order without a date', function (done) {
-            var order = {
+        it('should not add a favorite order without ingredients', function (done) {
+            var favorite_order = {
                 student_email: 'rafaelvchaves@gmail.com',
-                is_favorite: false,
-                // ingredients: [
-                //     {
-                //     ingredient_type_id: '5c7614cc34b37ea27789161b',
-                //     name: 'ham',
-                //     is_available: true
-                // }],
-                which_lunch: 1,
-                is_cancelled: false
+                favorite_name: 'MyFavoriteOrder'
             };
             chai.request(app)
-                .post('/orders')
-                .send(order)
+                .post('/favorite_orders')
+                .send(favorite_order)
                 .end(function (err, res) {
                     console.log(res.body);
                     res.should.have.status(200);
@@ -67,32 +59,28 @@ describe('TESTING FAVORITE ORDERS API', function () {
     });
 
     describe('Testing .post (positive)', function () {
-        it('should add an order', function (done) {
-            var order = {
+        it('should add a favorite order', function (done) {
+            var favorite_order = {
                 student_email: 'rafaelvchaves@gmail.com',
-                // is_favorite: false,
                 ingredients: [{
                     ingredient_type_id: '5c7614cc34b37ea27789161b',
                     name: 'ham',
                     is_available: true
                 }],
-                which_lunch: 1
-                // is_cancelled: false
+                favorite_name: 'MyFavoriteOrder'
+
             };
             chai.request(app)
-                .post('/orders')
-                .send(order)
+                .post('/favorite_orders')
+                .send(favorite_order)
                 .end(function (err, res) {
                     console.log(res.body);
                     res.should.have.status(200);
                     res.body.should.be.a('object');
-                    res.body.should.have.property('date');
                     res.body.should.have.property('student_email');
-                    res.body.should.have.property('is_favorite');
                     res.body.should.have.property('ingredients');
-                    res.body.should.have.property('which_lunch');
-                    res.body.should.have.property('is_cancelled');
-                    res.body.should.have.property('which_lunch').eql(1);
+                    res.body.should.have.property('favorite_name');
+                    res.body.should.have.property('favorite_name').eql('MyFavoriteOrder');
                     done();
                 });
 
@@ -100,33 +88,32 @@ describe('TESTING FAVORITE ORDERS API', function () {
     });
 
     describe('Testing .get with query', function () {
-        it('should find order given query', function (done) {
-            var order1 = new Order({
+        it('should find favorite order given query', function (done) {
+            var favoriteOrder1 = new FavoriteOrder({
                 student_email: 'rafavchaves@gmail.com',
-                is_favorite: false,
                 ingredients: [{
                     ingredient_type_id: '5c7614cc34b37ea27789161b',
                     name: 'ham',
                     is_available: true
                 }],
-                which_lunch: 1
+                favorite_name: 'MyFavoriteOrder'
             });
-            order1.save();
-            var order2 = new Order({
+            favoriteOrder1.save();
+            var favoriteOrder2 = new FavoriteOrder({
                 student_email: 'rafavchaves@gmail.com',
-                is_favorite: true,
                 ingredients: [{
                     ingredient_type_id: '5c7614cc34b37ea27789161b',
                     name: 'ham',
                     is_available: true
                 }],
-                which_lunch: 1
+                favorite_name: 'MyNewFavoriteOrder'
             });
-            order2.save();
+            favoriteOrder2.save();
             chai.request(app)
-                .get('/orders').query({is_favorite: true})
+                .get('/favorite_orders').query({favorite_name: 'MyNewFavoriteOrder'})
                 .end(function (err, res) {
                     console.log(res.body);
+                    console.log(favoriteOrder2.favorite_name);
                     res.should.have.status(200);
                     res.body.should.be.a('array').with.length(1);
                     done();
@@ -136,68 +123,28 @@ describe('TESTING FAVORITE ORDERS API', function () {
         });
     });
 
-    // describe('Testing .put', function () {
-    //     it('should update an order given the id', function (done) {
-    //         var order = new Order({
-    //             student_email: 'rafavchaves@gmail.com',
-    //             ingredients: [{
-    //                 ingredient_type_id: '5c7614cc34b37ea27789161b',
-    //                 name: 'ham',
-    //                 is_available: true
-    //             }],
-    //             which_lunch: 1
-    //         });
-    //         var updated_order = {
-    //             is_favorite: true,
-    //             student_email: 'rafavchaves@gmail.com',
-    //             ingredients: [{
-    //                 ingredient_type_id: '5c7614cc34b37ea27789161b',
-    //                 name: 'ham',
-    //                 is_available: true
-    //             }],
-    //             which_lunch: 3
-    //         };
-    //         order.save(function (err, order) {
-    //             chai.request(app)
-    //                 .put('/orders/' + order._id)
-    //                 .send(updated_order)
-    //                 .end(function (err, res) {
-    //                     console.log(order);
-    //                     console.log(res.body);
-    //                     res.should.have.status(200);
-    //                     res.body.should.be.a('object');
-    //                     res.body.should.have.property('which_lunch').eql(3);
-    //                     res.body.should.have.property('_id').eql(order._id.toString());
-    //                     done();
-    //                 });
-    //         });
-    //     });
-    // });
-
     describe('Testing .delete', function () {
-        it('should delete an order given the id', function (done) {
-            var order = new Order({
+        it('should delete a favorite order given the id', function (done) {
+            var favorite_order = new FavoriteOrder({
                 student_email: 'rafavchaves@gmail.com',
                 ingredients: [{
                     ingredient_type_id: '5c7614cc34b37ea27789161b',
                     name: 'ham',
                     is_available: true
                 }],
-                which_lunch: 1
+                favorite_name: 'MyUnwantedFavoriteOrder'
             });
-            order.save(function (err, order) {
+            favorite_order.save(function (err, order) {
                 chai.request(app)
-                    .delete('/orders/' + order._id)
+                    .delete('/favorite_orders/' + favorite_order._id)
                     .end(function (err, res) {
                         console.log(res.body);
                         res.should.have.status(200);
                         res.body.should.be.a('object');
-                        res.body.should.have.property('message').eql('Order successfully deleted!');
+                        res.body.should.have.property('message').eql('Favorite Order successfully deleted!');
                         done();
                     });
             })
         });
     });
-
-
 });

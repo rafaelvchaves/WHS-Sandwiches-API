@@ -12,7 +12,7 @@ var mongoose = require('mongoose'), // The require() method means that we are im
 exports.get_ingredients = function (req, res) {
     Ingredient.find({}, [], {
         sort: {
-            name: 1
+            name: -1
         }
     }, function (err, ingredient) {
         if (err)

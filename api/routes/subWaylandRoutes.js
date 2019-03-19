@@ -40,6 +40,8 @@ module.exports = function (app) {
         .get(OrderController.get_order)
         .put(OrderController.update_order)
         .delete(OrderController.delete_order);
+
+// Favorite Orders
     app.route('/favorite_orders')
         .get(FavoriteOrderController.get_favorite_orders)
         .post(FavoriteOrderController.add_favorite_order);
