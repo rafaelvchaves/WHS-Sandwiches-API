@@ -43,14 +43,14 @@ exports.get_favorite_order = function (req, res) {
     });
 };
 
-// // Updates an order (if someone wants to cancel their order).
-// exports.update_order = function (req, res) {
-//     FavoriteOrder.findOneAndUpdate({_id: req.params.favoriteOrderID}, req.body, {new: true}, function (err, favorite_order) {
-//         if (err)
-//             res.send(err);
-//         res.json(favorite_order);
-//     })
-// };
+// Updates an order (if someone wants to cancel their order).
+exports.update_favorite_order = function (req, res) {
+    FavoriteOrder.findOneAndUpdate({_id: req.params.favoriteOrderID}, req.body, {new: true}, function (err, favorite_order) {
+        if (err)
+            res.send(err);
+        res.json(favorite_order);
+    })
+};
 
 // Deletes a favorite.
 exports.delete_favorite_order = function (req, res) {

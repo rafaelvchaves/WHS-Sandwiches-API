@@ -8,9 +8,6 @@ exports.get_orders = function (req, res) {
     var filter = {};
     var sort = {};
     for (var param in req.query) {
-        // param = field
-        // req.query[param] = value
-        // console.log(param, req.query[param]);
         if (param === "daysOfOrders") {
             var today = new Date();
             var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - req.query["daysOfOrders"]);
@@ -23,8 +20,6 @@ exports.get_orders = function (req, res) {
             filter[param] = req.query[param]
         }
     }
-    console.log(filter);
-
     Order.find(filter, [], {sort: sort}, function (err, order) {
         if (err)
             res.send(err);

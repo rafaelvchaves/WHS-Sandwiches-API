@@ -106,11 +106,11 @@ describe('TESTING FAVORITE ORDERS API', function () {
                     name: 'ham',
                     is_available: true
                 }],
-                favorite_name: 'MyNewFavoriteOrder'
+                favorite_name: 'MyOtherFavoriteOrder'
             });
             favoriteOrder2.save();
             chai.request(app)
-                .get('/favorite_orders').query({favorite_name: 'MyNewFavoriteOrder'})
+                .get('/favorite_orders').query({favorite_name: 'MyOtherFavoriteOrder'})
                 .end(function (err, res) {
                     console.log(res.body);
                     console.log(favoriteOrder2.favorite_name);
@@ -120,6 +120,43 @@ describe('TESTING FAVORITE ORDERS API', function () {
                 });
 
 
+        });
+    });
+
+    describe('Testing .put', function () {
+        it('should update a favorite order given the id', function (done) {
+            var favorite_order = new FavoriteOrder({
+                student_email: 'rafavchaves@gmail.com',
+                ingredients: [{
+                    ingredient_type_id: '5c7614cc34b37ea27789161b',
+                    name: 'ham',
+                    is_available: true
+                }],
+                favorite_name: 'MyFavoriteOrder'
+            });
+            var updated_favorite_order = {
+                student_email: 'rafavchaves@gmail.com',
+                ingredients: [{
+                    ingredient_type_id: '5c7614cc34b37ea27789161b',
+                    name: 'ham',
+                    is_available: true
+                }],
+                favorite_name: 'MyNewFavoriteOrder'
+            };
+            favorite_order.save(function (err, favorite_order) {
+                chai.request(app)
+                    .put('/favorite_orders/' + favorite_order._id)
+                    .send(updated_favorite_order)
+                    .end(function (err, res) {
+                        console.log(favorite_order);
+                        console.log(res.body);
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('favorite_name').eql('MyNewFavoriteOrder');
+                        res.body.should.have.property('_id').eql(favorite_order._id.toString());
+                        done();
+                    });
+            });
         });
     });
 
