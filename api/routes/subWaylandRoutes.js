@@ -47,5 +47,6 @@ module.exports = function (app) {
         .post(FavoriteOrderController.add_favorite_order);
     app.route('/favorite_orders/:favoriteOrderID')
         .get(FavoriteOrderController.get_favorite_order)
+        .put(FavoriteOrderController.update_favorite_order)
         .delete(FavoriteOrderController.delete_favorite_order);
 };
