@@ -100,7 +100,7 @@ describe('TESTING FAVORITE ORDERS API', function () {
             });
             favoriteOrder1.save();
             var favoriteOrder2 = new FavoriteOrder({
-                student_email: 'rafavchaves@gmail.com',
+                student_email: 'rafaelvchaves@gmail.com',
                 ingredients: [{
                     ingredient_type_id: '5c7614cc34b37ea27789161b',
                     name: 'ham',
@@ -110,10 +110,9 @@ describe('TESTING FAVORITE ORDERS API', function () {
             });
             favoriteOrder2.save();
             chai.request(app)
-                .get('/favorite_orders').query({favorite_name: 'MyOtherFavoriteOrder'})
+                .get('/favorite_orders').query({student_email: 'rafaelvchaves@gmail.com'})
                 .end(function (err, res) {
                     console.log(res.body);
-                    console.log(favoriteOrder2.favorite_name);
                     res.should.have.status(200);
                     res.body.should.be.a('array').with.length(1);
                     done();

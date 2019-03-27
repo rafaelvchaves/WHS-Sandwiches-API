@@ -83,7 +83,7 @@ describe('TESTING ORDERS API', function () {
                     console.log(res.body);
                     res.should.have.status(200);
                     res.body.should.be.a('object');
-                    res.body.should.have.property('date');
+                    res.body.should.have.property('order_date');
                     res.body.should.have.property('student_email');
                     res.body.should.have.property('ingredients');
                     res.body.should.have.property('which_lunch');

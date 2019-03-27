@@ -42,10 +42,15 @@ var IngredientSchema = new Schema({
 
 // Each order will have a date, a student email/name, an is_favorite boolean, an array of Ingredients, a lunch (1st, 2nd, 3rd), and a boolean if the order is cancelled.
 var OrderSchema = new Schema({
-    date: {
+    order_date: {
         type: Date,
         default: new Date(),
         required: 'Enter the date of order'
+    },
+    pickup_date:{
+        type: Date,
+        default: new Date(),
+        required: 'Enter the pickup date of order'
     },
     student_email: {
         type: String,
