@@ -10,8 +10,8 @@ exports.get_orders = function (req, res) {
     for (var param in req.query) {
         if (param === "daysOfOrders") {
             var today = new Date();
-            var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - req.query["daysOfOrders"]);
-            filter["order_date"] = { $gt: lastWeek }
+            var startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - req.query["daysOfOrders"]);
+            filter["pickup_date"] = { $gt: startDate }
         }
         else if (param === "sort") {
             sort = req.query["sort"]
