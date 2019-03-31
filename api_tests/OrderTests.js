@@ -48,7 +48,7 @@ describe('TESTING ORDERS API', function () {
                 //     is_available: true
                 // }],
                 which_lunch: 1,
-                is_cancelled: false
+                is_completed: false
             };
             chai.request(app)
                 .post('/orders')
@@ -87,7 +87,7 @@ describe('TESTING ORDERS API', function () {
                     res.body.should.have.property('student_email');
                     res.body.should.have.property('ingredients');
                     res.body.should.have.property('which_lunch');
-                    res.body.should.have.property('is_cancelled');
+                    res.body.should.have.property('is_completed');
                     res.body.should.have.property('which_lunch').eql(1);
                     done();
                 });

@@ -66,7 +66,7 @@ var OrderSchema = new Schema({
         type: Number,
         required: 'Specify which lunch student is taking'
     },
-    is_cancelled: {
+    is_completed: {
         type: Boolean,
         required: 'Specify whether order is cancelled',
         default: false
