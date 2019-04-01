@@ -10,11 +10,17 @@ var mongoose = require('mongoose'), // The require() method means that we are im
 
 // Gets a list of ALL of the ingredients.
 exports.get_ingredients = function (req, res) {
-    Ingredient.find({}, [], {
-        sort: {
-            name: -1
+    var filter = {};
+    var sort = {};
+    for (var param in req.query) {
+        if (param === "sort") {
+            sort = req.query["sort"]
         }
-    }, function (err, ingredient) {
+        else {
+            filter[param] = req.query[param]
+        }
+    }
+    Ingredient.find(filter, [], {sort: sort}, function (err, ingredient) {
         if (err)
             res.send(err);
         res.json(ingredient)
