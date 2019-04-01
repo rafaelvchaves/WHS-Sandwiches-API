@@ -41,12 +41,6 @@ describe('TESTING ORDERS API', function () {
         it('should not add an order without ingredients', function (done) {
             var order = {
                 student_email: 'rafaelvchaves@gmail.com',
-                // ingredients: [
-                //     {
-                //     ingredient_type_id: '5c7614cc34b37ea27789161b',
-                //     name: 'ham',
-                //     is_available: true
-                // }],
                 which_lunch: 1,
                 is_completed: false
             };
