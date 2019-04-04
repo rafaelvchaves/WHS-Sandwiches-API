@@ -1,8 +1,12 @@
 var seeder = require('mongoose-seed');
 var ObjectId = require('mongodb').ObjectId;
+var mongo_uri = process.env['MONGODB_URI'];
+if (mongo_uri === undefined) {
+    mongo_uri = 'mongodb://localhost/subWaylandDB'
+}
 
 // Connect to the MongoDB database via Mongoose.
-seeder.connect('mongodb://localhost/subWaylandDB', function () {
+seeder.connect(mongo_uri, function () {
 
     // Load Mongoose models.
     seeder.loadModels([

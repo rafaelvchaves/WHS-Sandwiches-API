@@ -20,6 +20,7 @@
     "cookie-parser": "^1.4.4",
     "express": "^4.16.4",
     "mongoose": "^5.4.13",
-    "mongoose-seed": "^0.6.0"
+    "mongoose-seed": "^0.6.0",
+    "serverless-http": "^1.9.1"
   }
 }
