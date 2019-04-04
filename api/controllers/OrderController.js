@@ -10,7 +10,7 @@ exports.get_orders = function (req, res) {
     for (var param in req.query) {
         if (param === "daysOfOrders") {
             var today = new Date();
-            var startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - req.query["daysOfOrders"]);
+            var startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - req.query["daysOfOrders"], today.getHours(), today.getMinutes(), today.getSeconds(), today.getMilliseconds());
             filter["pickup_date"] = { $gt: startDate }
         }
         else if (param === "sort") {
