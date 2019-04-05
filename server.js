@@ -22,15 +22,12 @@ if (mongo_uri === undefined) {
     mongo_uri = 'mongodb://localhost/subWaylandDB'
 }
 
-
-// Connect to the database (subWaylandDB).
-// mongoose.connect('mongodb://localhost/subWaylandDB', {useNewUrlParser: true});
 mongoose.connect(mongo_uri, {useNewUrlParser: true});
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
-// Imported as function with app parameter.
+
 var routes = require('./api/routes/subWaylandRoutes');
 
 // Register the routes.
@@ -38,5 +35,6 @@ routes(app);
 
 app.listen(port);
 console.log('subWayland RESTful API server started on: ' + port);
+
 // module.exports = app;
 module.exports.handler = serverless(app);
