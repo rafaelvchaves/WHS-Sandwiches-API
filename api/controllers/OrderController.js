@@ -13,6 +13,14 @@ exports.get_orders = function (req, res) {
             var startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - req.query["daysOfOrders"], today.getHours(), today.getMinutes(), today.getSeconds(), today.getMilliseconds());
             filter["pickup_date"] = { $gt: startDate }
         }
+        else if (param === "pickup_date"){
+            var nextPickupDate = new Date(req.query["pickup_date"]);
+            nextPickupDate.setHours(0);
+            nextPickupDate.setMinutes(0);
+            nextPickupDate.setSeconds(0);
+            nextPickupDate.setMilliseconds(0);
+            filter["pickup_date"] = { $gt: nextPickupDate }
+        }
         else if (param === "sort") {
             sort = req.query["sort"]
         }
