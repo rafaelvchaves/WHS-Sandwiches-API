@@ -30,7 +30,6 @@ app.use(cookieParser());
 
 var routes = require('./api/routes/subWaylandRoutes');
 
-// Register the routes.
 routes(app);
 
 app.listen(port);

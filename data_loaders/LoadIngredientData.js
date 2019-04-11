@@ -60,13 +60,13 @@ var data = [
                 '_id': toppings_id,
                 'name': 'Toppings',
                 'minimum': 0,
-                'maximum': 5
+                'maximum': 4
             },
             {
                 '_id': sauce_id,
                 'name': 'Sauce',
                 'minimum': 0,
-                'maximum': 2
+                'maximum': 1
             }
         ]
     },
@@ -76,17 +76,12 @@ var data = [
         'documents': [
             {
                 'ingredient_type_id': bread_id,
-                'name': 'Ciabatta',
+                'name': 'Ciabatta Roll',
                 'is_available': true
             },
             {
                 'ingredient_type_id': bread_id,
-                'name': 'Wheat',
-                'is_available': true
-            },
-            {
-                'ingredient_type_id': bread_id,
-                'name': 'White',
+                'name': 'Wheat Bread',
                 'is_available': true
             },
             {
@@ -104,6 +99,23 @@ var data = [
                 'name': 'Wheat Wrap',
                 'is_available': true
             },
+            {
+                'ingredient_type_id': bread_id,
+                'name': 'Garlic & Herb Wrap',
+                'is_available': true
+            },
+            {
+                'ingredient_type_id': bread_id,
+                'name': 'Bulky Roll',
+                'is_available': true
+            },
+            {
+                'ingredient_type_id': bread_id,
+                'name': 'Multigrain Bread',
+                'is_available': true
+            },
+
+
             {
                 'ingredient_type_id': meat_id,
                 'name': 'Ham',
@@ -125,6 +137,18 @@ var data = [
                 'is_available': true
             },
             {
+                'ingredient_type_id': meat_id,
+                'name': 'Chicken Salad',
+                'is_available': true
+            },
+            {
+                'ingredient_type_id': meat_id,
+                'name': 'Tuna',
+                'is_available': true
+            },
+
+
+            {
                 'ingredient_type_id': cheese_id,
                 'name': 'Provolone',
                 'is_available': true
@@ -133,11 +157,8 @@ var data = [
                 'ingredient_type_id': cheese_id,
                 'name': 'American',
                 'is_available': true
-            },            {
-                'ingredient_type_id': cheese_id,
-                'name': 'Cheddar',
-                'is_available': true
-            },            {
+            },
+            {
                 'ingredient_type_id': cheese_id,
                 'name': 'Swiss',
                 'is_available': true
@@ -147,6 +168,7 @@ var data = [
                 'name': 'Pepper Jack',
                 'is_available': true
             },
+
             {
                 'ingredient_type_id': toppings_id,
                 'name': 'Lettuce',
@@ -168,8 +190,28 @@ var data = [
                 'is_available': true
             },
             {
+                'ingredient_type_id': toppings_id,
+                'name': 'Banana Peppers',
+                'is_available': true
+            },
+            {
                 'ingredient_type_id': sauce_id,
                 'name': 'Mayonnaise',
+                'is_available': true
+            },
+            {
+                'ingredient_type_id': sauce_id,
+                'name': 'Mustard',
+                'is_available': true
+            },
+            {
+                'ingredient_type_id': sauce_id,
+                'name': 'Caesar Dressing',
+                'is_available': true
+            },
+            {
+                'ingredient_type_id': sauce_id,
+                'name': 'Ranch Dressing',
                 'is_available': true
             }
         ]
