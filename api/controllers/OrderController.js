@@ -21,7 +21,10 @@ exports.get_orders = function (req, res) {
             pickupDate.setMilliseconds(0);
             var nextPickupDate = new Date(pickupDate);
             nextPickupDate.setDate(pickupDate.getDate() + 1)
-            filter["pickup_date"] = { $gte: pickupDate, $lte: nextPickupDate }
+            filter["pickup_date"] = { $gte: pickupDate.toISOString(), $lte: nextPickupDate.toISOString() }
+            console.log("greater than " + pickupDate);
+            console.log("less than " + nextPickupDate);
+
         }
         else if (param === "sort") {
             sort = req.query["sort"]
