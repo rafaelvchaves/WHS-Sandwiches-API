@@ -14,12 +14,14 @@ exports.get_orders = function (req, res) {
             filter["pickup_date"] = { $gt: startDate }
         }
         else if (param === "pickup_date"){
-            var nextPickupDate = new Date(req.query["pickup_date"]);
-            nextPickupDate.setHours(0);
-            nextPickupDate.setMinutes(0);
-            nextPickupDate.setSeconds(0);
-            nextPickupDate.setMilliseconds(0);
-            filter["pickup_date"] = { $gt: nextPickupDate }
+            var pickupDate = new Date(req.query["pickup_date"]);
+            pickupDate.setHours(0);
+            pickupDate.setMinutes(0);
+            pickupDate.setSeconds(0);
+            pickupDate.setMilliseconds(0);
+            var nextPickupDate = new Date(pickupDate);
+            nextPickupDate.setDate(pickupDate.getDate() + 1)
+            filter["pickup_date"] = { $gte: pickupDate, $lte: nextPickupDate }
         }
         else if (param === "sort") {
             sort = req.query["sort"]
