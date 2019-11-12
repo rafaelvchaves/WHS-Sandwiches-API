@@ -2,7 +2,6 @@
 var mongoose = require('mongoose');
 var FavoriteOrder = mongoose.model('FavoriteOrders');
 
-// Gets list of all orders.
 exports.get_favorite_orders = function (req, res) {
     var filter = {};
     var sort = {};
@@ -22,7 +21,6 @@ exports.get_favorite_orders = function (req, res) {
     });
 };
 
-// Adds an order to the list (will be done by the user).
 exports.add_favorite_order = function (req, res) {
     var new_favorite_order = new FavoriteOrder(req.body);
     new_favorite_order.save(function (err, favorite_order) {
@@ -33,7 +31,6 @@ exports.add_favorite_order = function (req, res) {
     });
 };
 
-// Gets one order.
 exports.get_favorite_order = function (req, res) {
     FavoriteOrder.findById(req.params.favoriteOrderID, function (err, favorite_order) {
         if (err)
@@ -43,7 +40,6 @@ exports.get_favorite_order = function (req, res) {
     });
 };
 
-// Updates an order (if someone wants to cancel their order).
 exports.update_favorite_order = function (req, res) {
     FavoriteOrder.findOneAndUpdate({_id: req.params.favoriteOrderID}, req.body, {new: true}, function (err, favorite_order) {
         if (err)
@@ -52,7 +48,6 @@ exports.update_favorite_order = function (req, res) {
     })
 };
 
-// Deletes a favorite.
 exports.delete_favorite_order = function (req, res) {
     FavoriteOrder.deleteOne({
         _id: req.params.favoriteOrderID

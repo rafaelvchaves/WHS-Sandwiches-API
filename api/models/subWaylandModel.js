@@ -3,10 +3,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// Database is comprised of three collections: IngredientTypes, Ingredients, and Orders.
-// Each collection is comprised of documents, which are structured by Schemas.
-
-// Each ingredient type has a name (e.g. bread, meat) and a limit (1 for bread, 3 for meat, etc).
 var IngredientTypeSchema = new Schema({
     name: {
         type: String,
@@ -22,7 +18,6 @@ var IngredientTypeSchema = new Schema({
     }
 });
 
-// Each ingredient will have a name (e.g. ciabatta, turkey), an availability boolean, and an ingredient type ID reference so we know its ingredient type.
 var IngredientSchema = new Schema({
     ingredient_type_id: {
         type: Schema.Types.ObjectId,
@@ -40,7 +35,6 @@ var IngredientSchema = new Schema({
 
 });
 
-// Each order will have a date, a student email/name, an is_favorite boolean, an array of Ingredients, a lunch (1st, 2nd, 3rd), and a boolean if the order is cancelled.
 var OrderSchema = new Schema({
     order_date: {
         type: Date,
@@ -58,8 +52,7 @@ var OrderSchema = new Schema({
     },
     ingredients: {
         type: [IngredientSchema],
-        default: undefined, // By default, the array was simply empty, which wasn't recognized as an error.
-        // Defaulting this to undefined means that an error will be thrown if no ingredients are added to an order.
+        default: undefined,
         required: 'Add ingredients to this order'
     },
     which_lunch: {
@@ -89,7 +82,6 @@ var FavoriteOrderSchema = new Schema({
     }
 });
 
-// The .model() function makes a copy of the schema so it can be used elsewhere.
 module.exports = mongoose.model('Ingredients', IngredientSchema);
 module.exports = mongoose.model('Orders', OrderSchema);
 module.exports = mongoose.model('FavoriteOrders', FavoriteOrderSchema);
